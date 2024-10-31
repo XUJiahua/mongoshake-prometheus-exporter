@@ -8,15 +8,41 @@ import (
 
 type Client struct {
 	baseURL string
+	alias   string
 	client  *http.Client
 }
 
-func NewClient(baseURL string) *Client {
+type Option func(*Client)
+
+func WithAlias(alias string) Option {
+	return func(c *Client) {
+		c.alias = alias
+	}
+}
+
+func WithTimeout(timeout time.Duration) Option {
+	return func(c *Client) {
+		c.client.Timeout = timeout
+	}
+}
+
+func NewClient(baseURL string, opts ...Option) *Client {
 	c := &http.Client{
-		// refactor me: as an option of constructor
+		// default timeout, 1s
+		// override by WithTimeout
 		Timeout: time.Second,
 	}
-	return &Client{baseURL: baseURL, client: c}
+	client := &Client{baseURL: baseURL, client: c}
+
+	for _, opt := range opts {
+		opt(client)
+	}
+
+	if client.alias == "" {
+		client.alias = baseURL
+	}
+
+	return client
 }
 
 func (c *Client) GetRepl() (*Repl, error) {
