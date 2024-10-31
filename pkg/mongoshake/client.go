@@ -45,6 +45,14 @@ func NewClient(baseURL string, opts ...Option) *Client {
 	return client
 }
 
+func (c *Client) GetAlias() string {
+	return c.alias
+}
+
+func (c *Client) GetBaseURL() string {
+	return c.baseURL
+}
+
 func (c *Client) GetRepl() (*Repl, error) {
 	resp, err := c.client.Get(c.baseURL + "/repl")
 	if err != nil {
