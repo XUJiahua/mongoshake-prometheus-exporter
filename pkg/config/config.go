@@ -18,6 +18,7 @@ type ProbeConfig struct {
 }
 
 type Config struct {
+	Debug  bool          `toml:"debug"`
 	Probes []ProbeConfig `toml:"probes"`
 }
 
