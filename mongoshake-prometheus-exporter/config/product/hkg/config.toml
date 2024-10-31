@@ -1,0 +1,13 @@
+debug = true
+
+[[probes]]
+  base_url = "http://localhost:9100"
+  alias = "mongoshake1"
+  timeout = 0
+  interval = 0
+
+[[probes]]
+  base_url = "http://localhost:54116"
+  alias = "mongoshake2"
+  timeout = 0
+  interval = 0
