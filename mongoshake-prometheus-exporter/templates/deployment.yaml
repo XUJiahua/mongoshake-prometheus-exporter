@@ -39,7 +39,7 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: {{ include "mongoshake.fullname" . }}
+            name: {{ include "mongoshake-prometheus-exporter.fullname" . }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
